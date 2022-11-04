@@ -111,7 +111,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Abdi Zamed - [@Follow my twitter](https://twitter.com/abdi-aaqyaar)
+Abdi Zamed - [@Follow my twitter](https://twitter.com/abdizamedmo)
 
 Project Link: [https://github.com/abdi-aaqyaar/nodejs-rest-api-ts-template](https://github.com/abdi-aaqyaar/nodejs-rest-api-ts-template)
 

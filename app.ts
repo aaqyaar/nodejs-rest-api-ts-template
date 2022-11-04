@@ -1,17 +1,17 @@
 import express, { Express, Request, Response } from "express";
-import "dotenv/config";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
 import { readdirSync } from "fs";
 import path from "path";
-import api from "express-mongo-som";
+import { connectDB } from "./src/config";
+import "dotenv/config";
 // import { errorHandler, notFound } from "./src/middlewares/error";
 
 const app: Express = express();
 
 // Connect to MongoDB
-api.connectDB(process.env.MONGO_URI);
+connectDB(process.env.MONGO_URI!);
 
 // Init Middleware
 app.use(express.json());
