@@ -56,10 +56,9 @@ you
 \_Below is an example of how you can instruct your audience on installing and setting up your app.
 
 1. Clone the repo
-   ````sh
+   ```sh
    git clone https://github.com/abdi-aaqyaar/nodejs-rest-api-ts-template.git
    ```
-   ````
 2. Install NPM packages
    ```sh
    npm install
