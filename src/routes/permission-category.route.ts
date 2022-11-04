@@ -1,5 +1,5 @@
 import { Router } from "express";
-import PermissionCategory from "../controllers/auth/permission-category";
+import PermissionCategory from "../controllers/auth/menu";
 
 const router = Router();
 

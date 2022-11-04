@@ -7,7 +7,7 @@ export type PermissionType = {
   auth: boolean;
   description: string;
 };
-export type PermissionCategoryType = {
+export type MenuType = {
   name: string;
   method: string;
   route: string;
@@ -16,10 +16,8 @@ export type PermissionCategoryType = {
 };
 
 export type PermissionDocument = PermissionType & mongoose.Document;
-export type PermissionCategoryDocument = PermissionCategoryType &
-  mongoose.Document;
+export type MenuDocument = MenuType & mongoose.Document;
 
 export type PermissionModel = mongoose.Model<PermissionDocument>;
 
-export type PermissionCategoryModel =
-  mongoose.Model<PermissionCategoryDocument>;
+export type MenuModel = mongoose.Model<MenuDocument>;

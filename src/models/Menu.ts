@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { MenuModel } from "../types/permission.types";
 
 const schema = new Schema(
   {
@@ -11,4 +12,4 @@ const schema = new Schema(
   { timestamps: true }
 );
 
-export default model("PermissionCategory", schema);
+export default model<MenuModel>("Menu", schema);

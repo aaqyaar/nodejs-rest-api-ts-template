@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import PermissionCategoryModel from "../../models/PermissionCategory.model";
-import { PermissionCategoryDocument } from "../../types/permission.types";
+import MenuModel from "../../models/Menu";
+import { MenuDocument } from "../../types/permission.types";
 
-const schema = PermissionCategoryModel;
+const schema = MenuModel;
 
 export default class PermissionCategory {
   // @desc    Create Permission Category @access  Private
   // @route   POST /api/v1/permission-category
   static async create(req: Request, res: Response) {
     try {
-      const result = await schema.create<PermissionCategoryDocument>(req.body);
+      const result = await schema.create<MenuDocument>(req.body);
       return res.json({
         data: result,
-        message: "Permission Category Created Successfuly",
+        message: "Menu Created Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -21,7 +21,7 @@ export default class PermissionCategory {
 
   static async list(req: Request, res: Response) {
     try {
-      const results = await schema.find<PermissionCategoryDocument>();
+      const results = await schema.find<MenuDocument>();
       return res.json({ data: results });
     } catch (error) {
       return res.status(500).send(error);
@@ -40,8 +40,8 @@ export default class PermissionCategory {
 
   static async update(req: Request, res: Response) {
     try {
-      const data: PermissionCategoryDocument = req.body;
-      const result = await schema.findByIdAndUpdate<PermissionCategoryDocument>(
+      const data: MenuDocument = req.body;
+      const result = await schema.findByIdAndUpdate<MenuDocument>(
         { _id: data._id },
         { data },
         {
@@ -50,7 +50,7 @@ export default class PermissionCategory {
       );
       return res.json({
         data: result,
-        message: "Permission Category Updated Successfuly",
+        message: "Menu Updated Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -61,7 +61,7 @@ export default class PermissionCategory {
     try {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
-      return res.json({ message: "Permission Category Deleted Successfuly" });
+      return res.json({ message: "Menu Deleted Successfuly" });
     } catch (error) {
       return res.status(500).send(error);
     }
