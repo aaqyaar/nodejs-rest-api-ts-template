@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
-import MenuModel from "../../models/Menu.model";
-import { MenuDocument } from "../../types/permission.types";
+import RoleModel from "../../models/Role.model";
 
-const schema = MenuModel;
+const schema = RoleModel;
 
-export default class Menu {
+export default class Role {
   // @desc    Create Permission Category @access  Private
   // @route   POST /api/v1/permission-category
   static async create(req: Request, res: Response) {
     try {
-      const result = await schema.create<MenuDocument>(req.body);
+      const result = await schema.create(req.body);
       return res.json({
         data: result,
-        message: "Menu Created Successfuly",
+        message: "Role Created Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -21,7 +20,7 @@ export default class Menu {
 
   static async list(req: Request, res: Response) {
     try {
-      const results = await schema.find<MenuDocument>();
+      const results = await schema.find();
       return res.json({ data: results });
     } catch (error) {
       return res.status(500).send(error);
@@ -40,8 +39,8 @@ export default class Menu {
 
   static async update(req: Request, res: Response) {
     try {
-      const data: MenuDocument = req.body;
-      const result = await schema.findByIdAndUpdate<MenuDocument>(
+      const data = req.body;
+      const result = await schema.findByIdAndUpdate(
         { _id: data._id },
         { data },
         {
@@ -50,7 +49,7 @@ export default class Menu {
       );
       return res.json({
         data: result,
-        message: "Menu Updated Successfuly",
+        message: "Role Updated Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -61,7 +60,7 @@ export default class Menu {
     try {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
-      return res.json({ message: "Menu Deleted Successfuly" });
+      return res.json({ message: "Role Deleted Successfuly" });
     } catch (error) {
       return res.status(500).send(error);
     }
