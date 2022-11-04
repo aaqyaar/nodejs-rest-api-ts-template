@@ -7,19 +7,21 @@ import { getPaginatedData } from "../utils/pagination";
 export const update = async (req: Request, res: Response) => {
   try {
     const data = req.body;
-    const user = await UserModel.findByIdAndUpdate(
+    const result = await UserModel.findByIdAndUpdate(
       { _id: data._id },
       { data },
       {
         new: true,
       }
     );
-    if (!user) {
+    if (!result) {
       return res
         .status(404)
         .json({ message: "User can't be update because is'nt exist." });
     }
-    return res.status(200).json(user);
+    return res
+      .status(200)
+      .json({ data: result, message: "User Updated Successfuly" });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -50,11 +52,8 @@ export const list = async (req: Request, res: Response) => {
 export const removeOne = async (req: Request, res: Response) => {
   try {
     const { _id } = req.params;
-    const user = await UserModel.findByIdAndDelete(_id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.status(200).json(user);
+    await UserModel.findByIdAndDelete(_id);
+    return res.status(200).json({ message: "User Deleted Successfuly" });
   } catch (error) {
     res.status(500).json(error);
   }

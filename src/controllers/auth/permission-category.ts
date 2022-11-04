@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
-import PermissionModel from "../../models/Permission.model";
-import { PermissionDocument } from "../../types/permission.types";
+import PermissionCategoryModel from "../../models/PermissionCategory.model";
+import { PermissionCategoryDocument } from "../../types/permission.types";
 
-// global variable for the schema
-const schema = PermissionModel;
+const schema = PermissionCategoryModel;
 
-export default class Permission {
-  // @desc    Create Permission @access  Private
-  // @route   POST /api/v1/permissions
+export default class PermissionCategory {
+  // @desc    Create Permission Category @access  Private
+  // @route   POST /api/v1/permission-category
   static async create(req: Request, res: Response) {
     try {
-      const result = await schema.create<PermissionDocument>(req.body);
+      const result = await schema.create<PermissionCategoryDocument>(req.body);
       return res.json({
         data: result,
-        message: "Permission Created Successfuly",
+        message: "Permission Category Created Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -22,7 +21,7 @@ export default class Permission {
 
   static async list(req: Request, res: Response) {
     try {
-      const results = await schema.find<PermissionDocument>();
+      const results = await schema.find<PermissionCategoryDocument>();
       return res.json({ data: results });
     } catch (error) {
       return res.status(500).send(error);
@@ -41,8 +40,8 @@ export default class Permission {
 
   static async update(req: Request, res: Response) {
     try {
-      const data: PermissionDocument = req.body;
-      const result = await schema.findByIdAndUpdate<PermissionDocument>(
+      const data: PermissionCategoryDocument = req.body;
+      const result = await schema.findByIdAndUpdate<PermissionCategoryDocument>(
         { _id: data._id },
         { data },
         {
@@ -51,7 +50,7 @@ export default class Permission {
       );
       return res.json({
         data: result,
-        message: "Permission Updated Successfuly",
+        message: "Permission Category Updated Successfuly",
       });
     } catch (error) {
       return res.status(500).send(error);
@@ -62,7 +61,7 @@ export default class Permission {
     try {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
-      return res.json({ message: "Permission Deleted Successfuly" });
+      return res.json({ message: "Permission Category Deleted Successfuly" });
     } catch (error) {
       return res.status(500).send(error);
     }
