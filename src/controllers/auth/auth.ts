@@ -30,8 +30,8 @@ export default class Auth {
     try {
       const user = await UserModel.create<UserDocument>(req.body);
       return res.status(201).json(user);
-    } catch (error) {
-      return res.status(500).json(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
   // @desc    Login user
@@ -62,8 +62,8 @@ export default class Auth {
         token,
       };
       return res.status(200).json({ user: data.user, token: data.token });
-    } catch (error) {
-      return res.status(500).json(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -91,8 +91,8 @@ export default class Auth {
       return res.status(200).json({
         message: `Email has been sent to ${email}. Follow the instruction to reset password your account`,
       });
-    } catch (error) {
-      return res.status(500).json(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -122,8 +122,8 @@ export default class Auth {
       return res.status(200).json({
         message: `Password reset successfully`,
       });
-    } catch (error) {
-      return res.status(500).json(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 }

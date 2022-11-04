@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user.model";
-import {
-  getPaginatedData,
-  getReferecedPaginatedData,
-} from "../utils/pagination";
+import { getReferecedPaginatedData } from "../utils/pagination";
 
 // @desc    Update user @access  Private
 // @route   PUT /api/v1/users
@@ -25,8 +22,8 @@ export const update = async (req: Request, res: Response) => {
     return res
       .status(200)
       .json({ data: result, message: "User Updated Successfuly" });
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -47,8 +44,8 @@ export const list = async (req: Request, res: Response) => {
         limit
       );
     return res.status(200).json({ data, numberOfPages, currentPage });
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -59,7 +56,7 @@ export const removeOne = async (req: Request, res: Response) => {
     const { _id } = req.params;
     await UserModel.findByIdAndDelete(_id);
     return res.status(200).json({ message: "User Deleted Successfuly" });
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
   }
 };

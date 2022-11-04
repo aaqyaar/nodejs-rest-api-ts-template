@@ -15,8 +15,8 @@ export default class Permission {
         data: result,
         message: "Permission Created Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -24,8 +24,8 @@ export default class Permission {
     try {
       const results = await schema.find<PermissionDocument>();
       return res.json({ data: results });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -34,8 +34,8 @@ export default class Permission {
       const { _id } = req.params;
       const result = await schema.findById(_id);
       return res.json({ data: result });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -53,8 +53,8 @@ export default class Permission {
         data: result,
         message: "Permission Updated Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -63,8 +63,8 @@ export default class Permission {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
       return res.json({ message: "Permission Deleted Successfuly" });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 }

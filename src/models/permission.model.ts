@@ -3,7 +3,7 @@ import { PermissionModel } from "../types/permission.types";
 
 const schema: Schema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     method: {
       type: String,
       toUpperCase: true,

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export type PermissionType = {
   name: string;
-  method: string;
+  method: any;
   route: string;
   auth: boolean;
   description: string;

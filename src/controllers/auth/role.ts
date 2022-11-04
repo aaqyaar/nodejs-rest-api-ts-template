@@ -13,8 +13,8 @@ export default class Role {
         data: result,
         message: "Role Created Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -22,8 +22,8 @@ export default class Role {
     try {
       const results = await schema.find().populate("permission menu").exec();
       return res.json({ data: results });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -35,8 +35,8 @@ export default class Role {
         .populate("permission menu")
         .exec();
       return res.json({ data: result });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -54,8 +54,8 @@ export default class Role {
         data: result,
         message: "Role Updated Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -64,8 +64,8 @@ export default class Role {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
       return res.json({ message: "Role Deleted Successfuly" });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 }

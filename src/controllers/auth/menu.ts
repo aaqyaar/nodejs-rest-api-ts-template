@@ -14,8 +14,8 @@ export default class Menu {
         data: result,
         message: "Menu Created Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -23,8 +23,8 @@ export default class Menu {
     try {
       const results = await schema.find<MenuDocument>();
       return res.json({ data: results });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -33,8 +33,8 @@ export default class Menu {
       const { _id } = req.params;
       const result = await schema.findById(_id);
       return res.json({ data: result });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -52,8 +52,8 @@ export default class Menu {
         data: result,
         message: "Menu Updated Successfuly",
       });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 
@@ -62,8 +62,8 @@ export default class Menu {
       const { _id } = req.params;
       await schema.findByIdAndDelete(_id);
       return res.json({ message: "Menu Deleted Successfuly" });
-    } catch (error) {
-      return res.status(500).send(error);
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   }
 }
