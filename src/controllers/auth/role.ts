@@ -20,7 +20,7 @@ export default class Role {
 
   static async list(req: Request, res: Response) {
     try {
-      const results = await schema.find();
+      const results = await schema.find().populate("permission menu").exec();
       return res.json({ data: results });
     } catch (error) {
       return res.status(500).send(error);
@@ -30,7 +30,10 @@ export default class Role {
   static async readOne(req: Request, res: Response) {
     try {
       const { _id } = req.params;
-      const result = await schema.findById(_id);
+      const result = await schema
+        .findById(_id)
+        .populate("permission menu")
+        .exec();
       return res.json({ data: result });
     } catch (error) {
       return res.status(500).send(error);
