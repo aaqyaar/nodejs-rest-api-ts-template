@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import MenuModel from "../../models/Menu.model";
+import MenuModel from "../../models/menu.model";
 import { MenuDocument } from "../../types/permission.types";
 
 const schema = MenuModel;

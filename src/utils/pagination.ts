@@ -26,3 +26,28 @@ export const getPaginatedData = async (
     console.log(e);
   }
 };
+
+export const getReferecedPaginatedData = async (
+  Model: any,
+  modelType: string,
+  ref: string,
+  page: number,
+  limit: number
+): Promise<PaginatedTypes | any> => {
+  try {
+    const data = await Model.find({})
+      .limit(limit)
+      .skip(page * limit)
+      .populate(ref ? ref : "")
+      .select(`${modelType === "User" ? "-password" : ""}`)
+      .exec();
+
+    const numberOfPages = Math.ceil(
+      (await Model.countDocuments().exec()) / limit
+    );
+
+    return { data, numberOfPages, currentPage: page };
+  } catch (e) {
+    return e;
+  }
+};

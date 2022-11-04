@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RoleModel from "../../models/Role.model";
+import RoleModel from "../../models/role.model";
 
 const schema = RoleModel;
 

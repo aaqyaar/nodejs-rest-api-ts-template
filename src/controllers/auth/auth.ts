@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UserModel from "../../models/User.model";
+import UserModel from "../../models/user.model";
 import jwt from "jsonwebtoken";
 import { UserDocument } from "../../types/user.types";
 import { sendEmail } from "../../documents/nodemailer";

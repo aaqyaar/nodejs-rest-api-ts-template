@@ -11,6 +11,7 @@ const schema: Schema = new Schema(
     avatar: { type: String },
     confirmed: { type: Boolean, default: false },
     blocked: { type: Boolean, default: false },
+    role: { type: Schema.Types.ObjectId, ref: "Role" },
     resetPasswordToken: { type: String },
     resetPasswordExpire: { type: Date },
   },

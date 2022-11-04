@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import PermissionModel from "../../models/Permission.model";
+import PermissionModel from "../../models/permission.model";
 import { PermissionDocument } from "../../types/permission.types";
 
 // global variable for the schema
