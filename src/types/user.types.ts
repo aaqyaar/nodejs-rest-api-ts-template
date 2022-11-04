@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-type User = {
+export type User = {
   email: string;
   password: string;
   name: string;

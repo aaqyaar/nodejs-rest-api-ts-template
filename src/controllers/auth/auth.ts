@@ -2,7 +2,14 @@ import { Request, Response } from "express";
 import User from "../../models/User.model";
 import jwt from "jsonwebtoken";
 import { UserDocument } from "../../types/user.types";
+import { sendEmail } from "../../documents/nodemailer";
+import { emailTemplate } from "../../documents/email";
 
+interface EMAIL_OPTIONS {
+  to: string;
+  subject: string;
+  text: string;
+}
 // Class Auth
 export default class Auth {
   // @desc JWT variables
@@ -74,7 +81,13 @@ export default class Auth {
       }
       const resetToken = await user.getResetPasswordToken();
       const resetPasswordLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-
+      const message = emailTemplate(user, resetPasswordLink);
+      const options: EMAIL_OPTIONS = {
+        to: email,
+        subject: "Reset Password Request",
+        text: message,
+      };
+      await sendEmail(options);
       return res.status(200).json({
         message: `Email has been sent to ${email}. Follow the instruction to reset password your account`,
       });
