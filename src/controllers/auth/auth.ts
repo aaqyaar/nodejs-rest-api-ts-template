@@ -39,10 +39,15 @@ export default class Auth {
           .status(404)
           .json({ message: "User not exist on the server" });
       }
+
       const isMatch = await user.isPasswordMatch(unhashedPassword);
       if (!isMatch) {
         return res.status(400).json({ message: "Invalid credentials" });
       }
+      if (user.blocked) {
+        return res.status(400).json({ message: "User is blocked" });
+      }
+
       const token = await Auth.generateToken({ _id: user._id });
       const { password, ...userWithoutPassword } = user.toObject();
       const data = {
@@ -50,6 +55,60 @@ export default class Auth {
         token,
       };
       return res.status(200).json({ user: data.user, token: data.token });
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  // @desc    Forgot Password
+  // @route   POST /api/v1/auth/forgot-password
+  // @access  Public
+  public static async forgotPassword(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      const user = await User.findOne<UserDocument>({ email }).exec();
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "User not exist on the server" });
+      }
+      const resetToken = await user.getResetPasswordToken();
+      const resetPasswordLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+
+      return res.status(200).json({
+        message: `Email has been sent to ${email}. Follow the instruction to reset password your account`,
+      });
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
+  // @desc    Reset Password
+  // @route   PUT /api/v1/auth/reset-password/:resetToken
+  // @access  Public
+  public static async resetPassword(req: Request, res: Response) {
+    try {
+      const { resetToken } = req.params;
+      const { password } = req.body;
+      const user = await User.findOne<UserDocument>({
+        resetPasswordToken: resetToken,
+      }).exec();
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "Token is not valid or not exist" });
+      }
+      if (user.resetPasswordExpire < Date.now()) {
+        return res.status(400).json({ message: "Token is expired" });
+      }
+
+      user.password = password;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+      await user.save();
+      return res.status(200).json({
+        message: `Password reset successfully`,
+      });
     } catch (error) {
       return res.status(500).json(error);
     }

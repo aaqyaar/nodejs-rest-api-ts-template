@@ -34,7 +34,7 @@ app.get("/", (req: Request, res: Response) => {
 // Import all routes
 readdirSync(`${__dirname}/src/routes`).map(async (r) => {
   const router: any = await import(`${__dirname}/src/routes/${r}`);
-  app.use("/api", router.default);
+  app.use("/api/v1", router.default);
 });
 
 // // Error handler

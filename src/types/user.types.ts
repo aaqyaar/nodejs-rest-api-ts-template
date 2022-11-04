@@ -7,7 +7,7 @@ type User = {
   avatar: string;
   confirmed: boolean;
   blocked: boolean;
-  resetPasswordToken: string;
+  resetPasswordToken: string | undefined;
   resetPasswordExpire: Date | any;
 };
 
