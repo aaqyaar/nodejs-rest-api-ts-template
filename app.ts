@@ -3,10 +3,14 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
+import api from "express-mongo-som";
 
 dotenv.config();
 
 const app: Express = express();
+
+// Connect to MongoDB
+api.connectDB(process.env.MONGO_URI);
 
 // Init Middleware
 app.use(express.json());

@@ -18,18 +18,6 @@ const schema: Schema = new Schema(
   }
 );
 
-// Encrypt password using bcrypt before saving
-schema.pre("save", async function (next) {
-  const user = this;
-  if (!user.isModified("password")) {
-    return next();
-  }
-  user.password = await user.encryptPassword(user.password);
-  next();
-
-  next();
-});
-
 // Compare the entered password to the hashed password in the database
 schema.methods.isPasswordMatch = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);
@@ -40,6 +28,16 @@ schema.methods.encryptPassword = async function (password: string) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 };
+
+// Encrypt password using bcrypt before saving
+schema.pre("save", async function (next) {
+  const user = this;
+  if (!user.isModified("password")) {
+    return next();
+  }
+  user.password = await user.encryptPassword(user.password);
+  next();
+});
 
 // Generate reset password token
 schema.methods.getResetPasswordToken = function () {
