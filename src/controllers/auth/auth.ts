@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../../models/User.model";
+import UserModel from "../../models/User.model";
 import jwt from "jsonwebtoken";
 import { UserDocument } from "../../types/user.types";
 import { sendEmail } from "../../documents/nodemailer";
@@ -28,7 +28,7 @@ export default class Auth {
   // @access  Public
   public static async register(req: Request, res: Response) {
     try {
-      const user = await User.create<UserDocument>(req.body);
+      const user = await UserModel.create<UserDocument>(req.body);
       return res.status(201).json(user);
     } catch (error) {
       return res.status(500).json(error);
@@ -40,7 +40,7 @@ export default class Auth {
   public static async login(req: Request, res: Response) {
     try {
       const { email, password: unhashedPassword } = req.body;
-      const user = await User.findOne<UserDocument>({ email }).exec();
+      const user = await UserModel.findOne<UserDocument>({ email }).exec();
       if (!user) {
         return res
           .status(404)
@@ -73,7 +73,7 @@ export default class Auth {
   public static async forgotPassword(req: Request, res: Response) {
     try {
       const { email } = req.body;
-      const user = await User.findOne<UserDocument>({ email }).exec();
+      const user = await UserModel.findOne<UserDocument>({ email }).exec();
       if (!user) {
         return res
           .status(404)
@@ -103,7 +103,7 @@ export default class Auth {
     try {
       const { resetToken } = req.params;
       const { password } = req.body;
-      const user = await User.findOne<UserDocument>({
+      const user = await UserModel.findOne<UserDocument>({
         resetPasswordToken: resetToken,
       }).exec();
       if (!user) {

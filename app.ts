@@ -17,7 +17,13 @@ connectDB(process.env.MONGO_URI!);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // cors is a middleware that allows us to make requests from our client
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "*", // allow to server to accept request from different origin
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // Helmet helps you secure your Express apps by setting various HTTP headers.
 app.use(helmet());

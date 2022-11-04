@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import UserModel from "../models/User.model";
 import { getPaginatedData } from "../utils/pagination";
 
-// @desc    Get all users @access  Private
+// @desc    Update user @access  Private
 // @route   PUT /api/v1/users
 export const update = async (req: Request, res: Response) => {
   try {
@@ -45,7 +45,7 @@ export const list = async (req: Request, res: Response) => {
   }
 };
 
-// @desc    Get all users @access  Private
+// @desc    Delete User @access  Private
 // @route   DELETE /api/v1/users:_id
 export const removeOne = async (req: Request, res: Response) => {
   try {

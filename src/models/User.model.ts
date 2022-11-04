@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { UserModel } from "../types/user.types";
@@ -56,4 +56,4 @@ schema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-export default mongoose.model<UserModel>("User", schema);
+export default model<UserModel>("User", schema);
