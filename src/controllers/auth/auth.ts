@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
-import User from "models/User";
+import User from "../../models/User.model";
 import jwt from "jsonwebtoken";
-import { UserDocument } from "types/user.types";
+import { UserDocument } from "../../types/user.types";
 
-const JWT_SECRET_KEY: any = process.env.JWT_SECRET_KEY || "secret";
-const JWT_EXPIRES_IN: any = process.env.JWT_EXPIRES_IN || "1d";
-
-//@desc   Class Auth
+// Class Auth
 export default class Auth {
+  // @desc JWT variables
+  private static JWT_SECRET_KEY: any = process.env.JWT_SECRET_KEY || "secret";
+  private static JWT_EXPIRES_IN: any = process.env.JWT_EXPIRES_IN || "1d";
+
   public static async generateToken({ _id }: any) {
     // Generate token
-    const token = jwt.sign({ _id }, JWT_SECRET_KEY, {
-      expiresIn: JWT_EXPIRES_IN,
+    const token = jwt.sign({ _id }, Auth.JWT_SECRET_KEY, {
+      expiresIn: Auth.JWT_EXPIRES_IN,
     });
     return token;
   }

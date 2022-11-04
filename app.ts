@@ -1,11 +1,12 @@
 import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import "dotenv/config";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
+import { readdirSync } from "fs";
+import path from "path";
 import api from "express-mongo-som";
-
-dotenv.config();
+// import { errorHandler, notFound } from "./src/middlewares/error";
 
 const app: Express = express();
 
@@ -27,7 +28,17 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.sendFile(path.join(__dirname.replace("/dist", "/public"), "/index.html"));
 });
+
+// Import all routes
+readdirSync(`${__dirname}/src/routes`).map(async (r) => {
+  const router: any = await import(`${__dirname}/src/routes/${r}`);
+  app.use("/api", router.default);
+});
+
+// // Error handler
+// app.use(notFound);
+// app.use(errorHandler);
 
 export default app;
