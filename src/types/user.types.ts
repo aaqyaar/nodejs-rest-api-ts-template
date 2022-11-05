@@ -7,14 +7,15 @@ export type User = {
   avatar: string;
   confirmed: boolean;
   blocked: boolean;
+  role: string;
   resetPasswordToken: string | undefined;
   resetPasswordExpire: Date | any;
 };
 
 interface UserMethods {
-  isPasswordMatch: (enteredPassword: string) => Promise<boolean>;
-  encryptPassword: (password: string) => Promise<string>;
-  getResetPasswordToken: () => string;
+  isPasswordMatch?: (enteredPassword: string) => Promise<boolean>;
+  encryptPassword?: (password: string) => Promise<string>;
+  getResetPasswordToken?: () => string;
 }
 
 export type UserDocument = User & mongoose.Document & UserMethods;
