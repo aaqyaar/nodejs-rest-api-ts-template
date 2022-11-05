@@ -42,10 +42,10 @@ export default class Role {
 
   static async update(req: Request, res: Response) {
     try {
-      const data = req.body;
+      const { name, permission, menu, _id } = req.body;
       const result = await schema.findByIdAndUpdate(
-        { _id: data._id },
-        { data },
+        { _id },
+        { name, permission, menu },
         {
           new: true,
         }

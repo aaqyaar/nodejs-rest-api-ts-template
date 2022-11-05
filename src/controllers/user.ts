@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user.model";
+import { UserDocument } from "../types/user.types";
 import { getReferecedPaginatedData } from "../utils/pagination";
 
 // @desc    Update user @access  Private
 // @route   PUT /api/v1/users
 export const update = async (req: Request, res: Response) => {
   try {
-    const data = req.body;
+    const { _id, name, email, avatar, role, blocked, confirmed }: UserDocument =
+      req.body;
     const result = await UserModel.findByIdAndUpdate(
-      { _id: data._id },
-      { data },
+      { _id },
+      { name, email, avatar, role, blocked, confirmed },
       {
         new: true,
       }

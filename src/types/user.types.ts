@@ -13,9 +13,9 @@ export type User = {
 };
 
 interface UserMethods {
-  isPasswordMatch?: (enteredPassword: string) => Promise<boolean>;
-  encryptPassword?: (password: string) => Promise<string>;
-  getResetPasswordToken?: () => string;
+  isPasswordMatch: (enteredPassword: string) => Promise<boolean>;
+  encryptPassword: (password: string) => Promise<string>;
+  getResetPasswordToken: () => string;
 }
 
 export type UserDocument = User & mongoose.Document & UserMethods;

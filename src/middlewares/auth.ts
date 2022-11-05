@@ -24,7 +24,7 @@ interface Req extends Request {
   user: any;
 }
 
-export const isAuth = async (req: Req, res: Response, next: NextFunction) => {
+export const isAuth = async (req: any, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
   // Check if token is sent
   if (!authorization) {

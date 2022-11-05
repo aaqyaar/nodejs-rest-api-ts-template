@@ -38,7 +38,7 @@ export const getReferecedPaginatedData = async (
     const data = await Model.find({})
       .limit(limit)
       .skip(page * limit)
-      .populate(ref ? ref : "")
+      .populate(ref ? ref : "", ref === "role" ? "name permission menu" : "")
       .select(`${modelType === "User" ? "-password" : ""}`)
       .exec();
 

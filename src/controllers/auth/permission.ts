@@ -42,9 +42,17 @@ export default class Permission {
   static async update(req: Request, res: Response) {
     try {
       const data: PermissionDocument = req.body;
+      const {
+        name,
+        route,
+        method,
+        auth,
+        description,
+        _id,
+      }: PermissionDocument = req.body;
       const result = await schema.findByIdAndUpdate<PermissionDocument>(
-        { _id: data._id },
-        { data },
+        { _id },
+        { name, route, method, auth, description },
         {
           new: true,
         }

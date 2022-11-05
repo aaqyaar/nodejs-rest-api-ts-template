@@ -40,10 +40,10 @@ export default class Menu {
 
   static async update(req: Request, res: Response) {
     try {
-      const data: MenuDocument = req.body;
+      const { path, _id, menu, type, subMenu }: MenuDocument = req.body;
       const result = await schema.findByIdAndUpdate<MenuDocument>(
-        { _id: data._id },
-        { data },
+        { _id },
+        { path, menu, type, subMenu },
         {
           new: true,
         }

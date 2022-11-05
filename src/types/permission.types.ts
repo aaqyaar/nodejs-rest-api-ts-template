@@ -7,12 +7,16 @@ export type PermissionType = {
   auth: boolean;
   description: string;
 };
+interface subMenu {
+  name: string;
+  path: string;
+}
 export type MenuType = {
   name: string;
-  method: string;
-  route: string;
-  auth: boolean;
-  description: string;
+  menu: string;
+  type: string;
+  path: string;
+  subMenu: subMenu[];
 };
 
 export type PermissionDocument = PermissionType & mongoose.Document;
